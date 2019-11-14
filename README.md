@@ -1,11 +1,10 @@
-# Python websockets sample for Google App Engine Flexible Environment
+docker build . -t mud-gcp
+#docker run --rm -v ${pwd}/vol:/data/:rw mud-gcp
+docker run -d -p 8000:8000 -v ${pwd}/vol:/app/:rw --name mud-gcp mud-gcp
+docker port mud-gcp
+docker ps -a
+docker stop mud-gcp
+docker rm mud-gcp
 
-This sample demonstrates how to use websockets on [Google App Engine Flexible Environment](https://cloud.google.com/appengine).
-
-## Running locally
-
-Refer to the [top-level README](../README.md) for instructions on running and deploying.
-
-To run locally, you need to use gunicorn with the ``flask_socket`` worker:
-
-    $ gunicorn -b 127.0.0.1:8080 -k flask_sockets.worker main:app
+docker login ;
+docker push hososugi/mud-gcp
