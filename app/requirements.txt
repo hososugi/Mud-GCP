@@ -1,5 +1,4 @@
 Flask==1.1.1
-click==6.7
 Flask-Sockets==0.2.1
-gunicorn==19.9.0
+click==6.7
 requests==2.22.0
