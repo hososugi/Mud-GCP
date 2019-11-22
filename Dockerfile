@@ -6,7 +6,7 @@ COPY ./app/requirements.txt /app/requirements.txt
 WORKDIR /app
 RUN pip install -r requirements.txt
 EXPOSE 8000
-CMD ["gunicorn -b 0.0.0.0:8000 -k flask_sockets.worker app:app"]
+CMD gunicorn -b 0.0.0.0:8000 -k flask_sockets.worker app:app
 
 #ENTRYPOINT ["python"]
 #CMD ["app.py"]
