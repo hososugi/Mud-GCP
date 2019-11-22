@@ -1,26 +1,18 @@
 
-#import firebase_admin
-#from firebase_admin import credentials
-#from firebase_admin import firestore
 
 from __future__    import print_function
 
 # [START gae_flex_websockets_app]
+import google.api_core.exceptions
+
 from flask         import Flask, render_template
 from flask_sockets import Sockets
+#from google.cloud  import firestore
 
 
 app = Flask(__name__)
+app.config['DEBUG'] = True
 sockets = Sockets(app)
-
-
-# project_id = "dew-mud"
-# cred = credentials.ApplicationDefault()
-# firebase_admin.initialize_app(cred, {
-#   'projectId': project_id,
-# })
-#
-# db = firestore.client()
 
 
 @sockets.route('/chat')
@@ -43,6 +35,27 @@ def index():
     return render_template('index.html')
 
 
+def quickstart_new_instance():
+    # [START quickstart_new_instance]
+    # Project ID is determined by the GCLOUD_PROJECT environment variable
+    db = firestore.Client()
+    # [END quickstart_new_instance]
+
+    return db
+
+
+def quickstart_add_data_one():
+    db = firestore.Client()
+    # [START quickstart_add_data_one]
+    doc_ref = db.collection(u'users').document(u'alovelace')
+    doc_ref.set({
+        u'user_id': 0,
+        u'nickname':  u'Hosoi',
+        u'room':  0
+    })
+    # [END quickstart_add_data_one]
+
+
 if __name__ == '__main__':
     print("""
 This can not be run directly because the Flask development server does not
@@ -51,5 +64,3 @@ support web sockets. Instead, use gunicorn:
 gunicorn -b 127.0.0.1:8080 -k flask_sockets.worker main:app
 
 """)
-    
-    #app.run(host='0.0.0.0', port=8000)
