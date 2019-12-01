@@ -5,23 +5,41 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
 
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" crossorigin="anonymous">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
   <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
   <script src="{{ url_for('static', filename='js/app.js') }}"></script>
 </head>
 <body>
+    <div id="messages-window" class="col-xs">
+      <div id="messages-wrapper" class="col-xs d-flex align-items-end flex-column">
+        <div id="message-template" class="p-1 message-bubble d-none">
+          <i class="fa fa-chevron-right"></i>
+          <span class="message-bubble-text">Item 0</span>
+        </div>
+      </div>
+    </div>
 
-  <!-- [START gae_flex_websockets_form] -->
-  <form id="chat-form">
-    <textarea id="chat-text" placeholder="Enter some text..."></textarea>
-    <button type="submit">Send</button>
-  </form>
-
-  <div>
-    <p>Messages:</p>
-    <ul id="chat-response"></ul>
+    <div class="row">
+      <div id="input-wrapper" class="col-xs">
+        <div class="input-group">
+          <input id="user-input" type="text" class="form-control" placeholder="Command" aria-label="Recipient's username" aria-describedby="button-addon2">
+          <div class="input-group-append">
+            <button id="user-input-submit" class="btn btn-outline-secondary" type="button" id="button-addon2">
+              <i class="fa fa-play"></i>
+            </button>
+          </div>
+        </div>
+      </div>
   </div>
 
-  <div>
+  <!-- [START gae_flex_websockets_form] -->
+
+  <div style="display:none">
     <p>Status:</p>
     <ul id="chat-status"></ul>
   </div>

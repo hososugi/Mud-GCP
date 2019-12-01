@@ -1,18 +1,25 @@
 
 
 from __future__    import print_function
-
-# [START gae_flex_websockets_app]
-import google.api_core.exceptions
-
 from flask         import Flask, render_template
 from flask_sockets import Sockets
-#from google.cloud  import firestore
 
 
-app = Flask(__name__)
+class CustomFlask(Flask):
+    def run(self, host=None, port=None, debug=None, load_dotenv=True, **options):
+        with self.app_context():
+            load_data()
+
+        super(CustomFlask, self).run(host=host, port=port, debug=debug, load_dotenv=load_dotenv, **options)
+
+
+app = CustomFlask(__name__)
 app.config['DEBUG'] = True
 sockets = Sockets(app)
+
+
+def load_data():
+    print("INFO: Loading data.")
 
 
 @sockets.route('/chat')
@@ -27,33 +34,11 @@ def chat_socket(ws):
         clients = ws.handler.server.clients.values()
         for client in clients:
             client.ws.send(message)
-# [END gae_flex_websockets_app]
 
 
 @app.route('/')
 def index():
     return render_template('index.html')
-
-
-def quickstart_new_instance():
-    # [START quickstart_new_instance]
-    # Project ID is determined by the GCLOUD_PROJECT environment variable
-    db = firestore.Client()
-    # [END quickstart_new_instance]
-
-    return db
-
-
-def quickstart_add_data_one():
-    db = firestore.Client()
-    # [START quickstart_add_data_one]
-    doc_ref = db.collection(u'users').document(u'alovelace')
-    doc_ref.set({
-        u'user_id': 0,
-        u'nickname':  u'Hosoi',
-        u'room':  0
-    })
-    # [END quickstart_add_data_one]
 
 
 if __name__ == '__main__':
