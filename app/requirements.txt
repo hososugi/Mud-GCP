@@ -1,5 +1,5 @@
 Flask==1.1.1
 Flask-Sockets==0.2.1
 click==6.7
-requests==2.22.0
+requests==2.31.0
 pyopenssl
